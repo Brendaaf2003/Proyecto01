@@ -12,6 +12,12 @@ def estado_destino():
     df = Base_de_datos()
     return df['destination'].unique()
 
+def vuelos_unicos():
+    df = Base_de_datos()
+    df = df[['origin', 'destination']].drop_duplicates()
+    df['ID_Vuelo'] = [i for i in range(1, len(df) + 1)]
+    return df
+
 def coordenadas(edo, orig = True):
     df = Base_de_datos()
     if orig:
