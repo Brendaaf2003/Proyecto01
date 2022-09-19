@@ -1,6 +1,6 @@
 import pandas as pd
 
-#Esta función ee la base de datos y la convierte en un dataframe
+#Esta función lee la base de datos y la convierte en un dataframe
 def Base_de_datos():
     df = pd.read_csv('/Users/brendaayala/Brenda_Sem3/Proyecto01/data/dataset1.csv')
     return df.drop_duplicates()
