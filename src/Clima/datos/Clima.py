@@ -1,6 +1,7 @@
 from Datos import coordenadas
 from Request import clima
 
+#Pide las coordenadas de los estados de origen y destino
 def Peticion(orig, destino):
     cor_orig = coordenadas(orig, True)
     cor_dest = coordenadas(destino, False)

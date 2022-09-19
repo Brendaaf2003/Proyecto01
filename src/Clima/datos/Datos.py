@@ -1,23 +1,18 @@
 import pandas as pd
 
+#Esta función ee la base de datos y la convierte en un dataframe
 def Base_de_datos():
-    df = pd.read_csv('/Users/Brenda_Sem3/Proyecto01/data/dataset2.csv')
+    df = pd.read_csv('/Users/brendaayala/Brenda_Sem3/Proyecto01/data/dataset1.csv')
     return df.drop_duplicates()
 
-def estado_origen():
-    df = Base_de_datos()
-    return df['origin'].unique()
-
-def estado_destino():
-    df = Base_de_datos()
-    return df['destination'].unique()
-
+#Esta función filtra los vuelos unicos
 def vuelos_unicos():
     df = Base_de_datos()
     df = df[['origin', 'destination']].drop_duplicates()
     df['ID_Vuelo'] = [i for i in range(1, len(df) + 1)]
     return df
 
+#Esta función extrae las coordenadas de los estados de origen y destino
 def coordenadas(edo, orig = True):
     df = Base_de_datos()
     if orig:
