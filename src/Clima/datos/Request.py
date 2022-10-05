@@ -4,14 +4,15 @@ from functools import lru_cache
 import os
 
 #Leer el archivo .env (Key api)
-def config():
+def lee_dotenv():
+    
     load_dotenv()
 
 #Crea el cache
 @lru_cache(maxsize=None)
 
 #Funcion que hace la peticion a la api con la latitud y longitud
-def peticion (lat, lon):
+def peticion_lat_lon(lat, lon):
    
    api_key = open('Api_key.txt', 'r').read()
 
