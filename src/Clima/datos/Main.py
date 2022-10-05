@@ -10,7 +10,11 @@ from functools import lru_cache
 cowsay.daemon("Bienvenid@ a Climapp")
 '''Da la bienvenida al usuario'''
 
+
+#Asegura de que la ruta absoluta sea la correcta
+
 #Asegurarse de que la ruta absoluta sea la correcta
+
 try:
     leer_base_de_datos()
 except:
@@ -31,40 +35,37 @@ except:
 tabla_orig, tabla_dest, tabla_vuelos, respuesta, aux = crear_tabla()
 '''Esta función crea las tablas para mostrar los datos'''
 
-#Genera cache para las peticiones
-'''Esta función genera cache para las peticiones'''
+
+#Genera cache para las peticiones a la api
 @lru_cache(maxsize=None)
 
 
-#Genera una tabla con los datos del clima
-#-----No usar esta función, usar la función crear_tabla1()-----
+#Genera cache para las peticiones
+@lru_cache(maxsize=None)
 
 
-#Coloca un ID de los vuelos unicos
 def dic_vuelos_unicos():
     '''Esta función crea un diccionario con los vuelos unicos y les asigna un ID'''
     dic={}
     vuelos=zip(obtener_vuelos_unicos()['origin'],obtener_vuelos_unicos()['destination'])
 
-    #Crea un diccionario con los vuelos unicos y les asigna un ID
+
+    #Ciclo para asignar un ID a cada vuelo
     for i,j in zip(obtener_vuelos_unicos()['ID_Vuelo'],vuelos):
         dic[i]=list(j)
     return dic
 
-#crea los titulos de la tabla de los vuelos unicos
 tabla_vuelos.field_names=['ID','Origen','Destino']
 '''Esta función crea los titulos de la tabla de los vuelos unicos'''
 
-#crea tuplas con los datos de los vuelos unicos
 unicos=zip(obtener_vuelos_unicos()['ID_Vuelo'],obtener_vuelos_unicos()['origin'],obtener_vuelos_unicos()['destination'])
 '''Esta función crea tuplas con los datos de los vuelos unicos'''
 
-#agrega los datos de los vuelos unicos a la tabla
+#ciclo que agrega los datos de los vuelos unicos a la tabla
 for i,j,k in unicos:
     tabla_vuelos.add_row([i,j,k])
 
 
-#Mientras la respuesta sea si, se ejecuta el programa
 while respuesta == "si":
 
     #Pide el ID del vuelo
@@ -74,7 +75,8 @@ while respuesta == "si":
     print("Ingrese el ID de vuelo")
     orig = input()
 
-    #revisa que el ID del vuelo sea valido
+
+    #Ciclo que verifica que el ID sea valido
     while int(orig) not in dic_vuelos_unicos().keys(): 
         print("El ID ingresado no es valido, ingrese el ID de vuelo")
         orig = input()
@@ -84,8 +86,6 @@ while respuesta == "si":
     '''Esta función pide las coordenadas de los estados de origen y destino'''
 
 
-
-    #Muestra los datos del clima de origen
     tabla_resultados_de_clima=PrettyTable()
     '''variable que crea la tabla para mostrar los datos del clima'''
     
@@ -110,28 +110,31 @@ while respuesta == "si":
     Difenecia_de_Temperatura=(clima_orig["temp"]-273.15)-Temp
     '''variable que guarda la diferencia de temperatura entre la ciudad de origen y destino'''
 
-    #agrerga los datos de la tabla principal de los datos de clima
     for i in range(aux):
         tabla_resultados_de_clima.add_row(llenar_tabla(i+1,Ciudad,Temp,Temperatura_Maxima,Temperatura_Minima,Humedad,Difenecia_de_Temperatura))
         '''variable que agrega los datos de la tabla principal de los datos de clima'''
 
-    #Muestra los los resultados de los datos de clima
+
+    #Muestra la de destino del usuario
     print(f'********** Estos son los resultados de la ciudad de {dic_vuelos_unicos()[int(orig)][1]} la cual es tu ciudad Destino **********')
 
     #Regresa una tabla con los datos de clima destino
     print(tabla_resultados_de_clima)
-    #aux+=1
+
 
     #Pregunta al usuario si seleccionar otra ciudad
     print("Desea realizar otra consulta? si/no")
     respuesta = input()
     '''variable que guarda la respuesta del usuario'''
 
+
+    #Ciclo que verifica que la respuesta sea valida
     while respuesta != "si" and respuesta != "no":
         print("Por favor ingrese una respuesta valida")
         print("Desea realizar otra consulta? si/no")
         respuesta = input()
     
+    #Condicion que termina el programa si el usuario no desea realizar otra consulta
     if respuesta == "no":
             print("\n************** \U0001F600 Gracias por usar Climapp \U0001F600 **************\n")
             break
