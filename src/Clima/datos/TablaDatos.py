@@ -6,7 +6,9 @@ from prettytable import PrettyTable
 from functools import lru_cache
 
 def crear_tabla():
+
     '''Esta función crea las tablas para mostrar los datos'''
+
     tabla_orig = PrettyTable()
     tabla_dest = PrettyTable()
     tabla_vuelos = PrettyTable()
@@ -16,6 +18,7 @@ def crear_tabla():
 
 def llenar_tabla(num, Ciudad, Temp, Temperatura_Maxima, Temperatura_Minima, Humedad, Difenecia_de_Temperatura):
     '''Esta función crea las tablas para mostrar los datos'''
+
     lista=[Ciudad,f'{round(Temp,2)}°C',
                                 f'{round(Temperatura_Maxima,2)}°C',
                                 f'{round(Temperatura_Minima,2)}°C',

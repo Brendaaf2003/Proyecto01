@@ -10,7 +10,11 @@ from functools import lru_cache
 cowsay.daemon("Bienvenid@ a Climapp")
 '''Da la bienvenida al usuario'''
 
+
 #Asegura de que la ruta absoluta sea la correcta
+
+#Asegurarse de que la ruta absoluta sea la correcta
+
 try:
     leer_base_de_datos()
 except:
@@ -31,7 +35,12 @@ except:
 tabla_orig, tabla_dest, tabla_vuelos, respuesta, aux = crear_tabla()
 '''Esta función crea las tablas para mostrar los datos'''
 
+
 #Genera cache para las peticiones a la api
+@lru_cache(maxsize=None)
+
+
+#Genera cache para las peticiones
 @lru_cache(maxsize=None)
 
 
@@ -40,6 +49,7 @@ def dic_vuelos_unicos():
     dic={}
     vuelos=zip(obtener_vuelos_unicos()['origin'],obtener_vuelos_unicos()['destination'])
 
+
     #Ciclo para asignar un ID a cada vuelo
     for i,j in zip(obtener_vuelos_unicos()['ID_Vuelo'],vuelos):
         dic[i]=list(j)
@@ -47,7 +57,6 @@ def dic_vuelos_unicos():
 
 tabla_vuelos.field_names=['ID','Origen','Destino']
 '''Esta función crea los titulos de la tabla de los vuelos unicos'''
-
 
 unicos=zip(obtener_vuelos_unicos()['ID_Vuelo'],obtener_vuelos_unicos()['origin'],obtener_vuelos_unicos()['destination'])
 '''Esta función crea tuplas con los datos de los vuelos unicos'''
@@ -65,6 +74,7 @@ while respuesta == "si":
 
     print("Ingrese el ID de vuelo")
     orig = input()
+
 
     #Ciclo que verifica que el ID sea valido
     while int(orig) not in dic_vuelos_unicos().keys(): 
@@ -100,10 +110,10 @@ while respuesta == "si":
     Difenecia_de_Temperatura=(clima_orig["temp"]-273.15)-Temp
     '''variable que guarda la diferencia de temperatura entre la ciudad de origen y destino'''
 
-
     for i in range(aux):
         tabla_resultados_de_clima.add_row(llenar_tabla(i+1,Ciudad,Temp,Temperatura_Maxima,Temperatura_Minima,Humedad,Difenecia_de_Temperatura))
         '''variable que agrega los datos de la tabla principal de los datos de clima'''
+
 
     #Muestra la de destino del usuario
     print(f'********** Estos son los resultados de la ciudad de {dic_vuelos_unicos()[int(orig)][1]} la cual es tu ciudad Destino **********')
@@ -111,10 +121,12 @@ while respuesta == "si":
     #Regresa una tabla con los datos de clima destino
     print(tabla_resultados_de_clima)
 
+
     #Pregunta al usuario si seleccionar otra ciudad
     print("Desea realizar otra consulta? si/no")
     respuesta = input()
     '''variable que guarda la respuesta del usuario'''
+
 
     #Ciclo que verifica que la respuesta sea valida
     while respuesta != "si" and respuesta != "no":

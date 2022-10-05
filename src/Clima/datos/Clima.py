@@ -1,6 +1,12 @@
 from Datos import extraer_coordenadas
 from Request import peticion_lat_lon
 
+
+def pedir_peticion(orig, destino):
+    '''Esta función pide las coordenadas de los estados de origen y destino'''
+
+
+#Pide las coordenadas de los estados de origen y destino
 def pedir_peticion(orig, destino):
     '''Esta función pide las coordenadas de los estados de origen y destino'''
 
